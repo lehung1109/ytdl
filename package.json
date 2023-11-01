@@ -1,0 +1,37 @@
+{
+  "name": "ytd",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "start": "concurrently \"vite build --watch\" \"vite preview\"",
+    "build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lehung1109/vite-base.git"
+  },
+  "keywords": [
+    "calendar",
+    "reminder"
+  ],
+  "author": "Hung Le <hung0895@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lehung1109/vite-base/issues"
+  },
+  "homepage": "https://github.com/lehung1109/vite-base#readme",
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "@types/react-dom": "^18.2.13",
+    "concurrently": "^8.2.1",
+    "sass": "^1.69.4",
+    "vite": "^4.4.11"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "bin": "./bin/cli.js"
+}
