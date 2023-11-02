@@ -1,0 +1,86 @@
+.red {
+  color: red;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ytd-download {
+  padding: 40px;
+  text-align: center;
+  background: linear-gradient(green, blue);
+  color: white;
+  position: relative;
+
+  &.loading {
+    pointer-events: none;
+
+    &::before {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 5px solid rgba(green, .9);
+      border-top-color: rgba(blue, .9);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      animation: spin 1s linear infinite;
+      z-index: 2;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(white, .5);
+      position: absolute;
+    }
+  }
+
+  input {
+    border: 0;
+    padding: 10px 20px;
+    font-size: 20px;
+    margin: 0;
+    outline: 0;
+    width: 500px;
+    display: inline-block;
+    margin-bottom: 20px;
+
+    &[type="submit"] {
+      cursor: pointer;
+      box-shadow: 1px 1px 1px 1px rgba(grey, .1);
+
+      &:hover {
+        background-color: green;
+        color: white;
+      }
+    }
+  }
+
+  p {
+    margin-top: 0;
+    color: white;
+  }
+}
+
+.sub-track {
+  font-weight: bold;
+  color: white;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
