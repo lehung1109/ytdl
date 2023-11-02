@@ -44,6 +44,11 @@
     }
   }
 
+  form {
+    display: flex;
+    justify-content: center;
+  }
+
   input {
     border: 0;
     padding: 10px 20px;
@@ -52,21 +57,23 @@
     outline: 0;
     width: 500px;
     display: inline-block;
-    margin-bottom: 20px;
+  }
 
-    &[type="submit"] {
-      cursor: pointer;
-      box-shadow: 1px 1px 1px 1px rgba(grey, .1);
+  [type="submit"] {
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 1px rgba(grey, .1);
+    display: inline-block;
+    border: 0;
+    outline: 0;
+    background-color: green;
+    color: white;
 
-      &:hover {
-        background-color: green;
-        color: white;
-      }
+    &:hover {
+      background-color: blue;
     }
   }
 
   p {
-    margin-top: 0;
     color: white;
   }
 }
@@ -74,6 +81,31 @@
 .sub-track {
   font-weight: bold;
   color: white;
+}
+
+a {
+  color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+  color: black;
+
+  a {
+    color: black;
+  }
 }
 
 @keyframes spin {

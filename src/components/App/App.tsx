@@ -2,9 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const App = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(false);
-  const [subStacks, setSubStacks] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [formats, setFormats] = useState(null);
 
   const onSubmit = async ({url}) => {
     try {
@@ -20,14 +21,14 @@ const App = () => {
 
       const playerResponse = JSON.parse(matches[1]);
 
-      setSubStacks([{
-        title: playerResponse.videoDetails.title
-      }]);
+      setTitle(playerResponse.videoDetails.title);
 
       const streamingData = playerResponse.streamingData;
 
-      const regularFormats = streamingData['formats'];
-	    const adaptiveFormats = streamingData['adaptiveFormats'];
+      const regularFormats: [] = streamingData['formats'] || [];
+	    const adaptiveFormats: [] = streamingData['adaptiveFormats'] || [];
+
+      setFormats([...regularFormats, ...adaptiveFormats]);
     } catch (error) {
       console.error(error)
     } finally {
@@ -42,18 +43,45 @@ const App = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input placeholder="https://www.youtube.com/watch?v=bXlxny6w14A" {...register("url", { required: true })} />
         
-        {errors.url && <p className="red">This field is required</p>}
-        
-        <input type="submit" value={"Get"} />
+        <button type="submit" value={"Get"} >Search</button>
       </form>
+        
+      {errors.url && <p className="red">This field is required</p>}
 
       <div className="sub-track">
-        {subStacks && subStacks.map((subStack, key) => {
-          const {title} = subStack;
-
-          return <p key={key}>{title}</p>
-        })}
+        <p>{title}</p>
       </div>
+
+      {
+        formats && (
+          <table className="list-download">
+            <thead>
+              <th>Download URL</th>
+              <th>quality</th>
+              <th>qualityLabel</th>
+              <th>mimeType</th>
+              <th>contentLength</th>
+              <th>bitrate</th>
+              <th>audioQuality</th>
+            </thead>
+            <tbody>
+              {formats.map((format) => {
+                console.log(format);
+    
+                return <tr>
+                  <td><a target="_blank" download={title} title={title} href={format['url']}>Download</a></td>
+                  <td>{format['quality']}</td>
+                  <td>{format['qualityLabel']}</td>
+                  <td>{format['mimeType']}</td>
+                  <td>{((format['contentLength'] || 0) / 1024 / 1024).toFixed(2)}MB</td>
+                  <td>{format['bitrate']}</td>
+                  <td>{format['audioQuality']}</td>
+                </tr>
+              })}
+            </tbody>
+          </table>
+        )
+      }
     </div>
   </>
 };
