@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { getPlayerJSUrl, processPlayerJs } from "../../helpers/decipher";
 
 const App = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -27,8 +28,13 @@ const App = () => {
 
       const regularFormats: [] = streamingData['formats'] || [];
 	    const adaptiveFormats: [] = streamingData['adaptiveFormats'] || [];
+      const formats = [...regularFormats, ...adaptiveFormats];
 
-      setFormats([...regularFormats, ...adaptiveFormats]);
+      const playerJsUrl = await getPlayerJSUrl(html);
+
+      playerJsUrl && await processPlayerJs(playerJsUrl, formats);
+
+      setFormats(formats);
     } catch (error) {
       console.error(error)
     } finally {
